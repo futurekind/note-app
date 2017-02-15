@@ -2,9 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
 
-import Icon from './components/Icon'
+import Checkbox from './components/Checkbox'
 
 render(
-    <Icon id="add" />,
+    <Checkbox type="orange" />,
     document.getElementById('root')
 );
