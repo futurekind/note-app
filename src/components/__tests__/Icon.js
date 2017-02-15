@@ -28,4 +28,12 @@ describe('Icon', () => {
         expect(toJSON(wrapper)).toMatchSnapshot()
     })
 
+    it('renders `check` icon', () => {
+        wrapper.setProps({
+            id: 'check'
+        })
+
+        expect(toJSON(wrapper)).toMatchSnapshot()
+    })
+
 })

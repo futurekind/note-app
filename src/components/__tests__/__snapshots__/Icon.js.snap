@@ -18,6 +18,18 @@ exports[`Icon renders \`add\` icon 1`] = `
 </styled.svg>
 `;
 
+exports[`Icon renders \`check\` icon 1`] = `
+<styled.svg
+  height={30}
+  viewBox="0 0 24 24"
+  width={30}
+  xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41"
+    fillRule="nonzero" />
+</styled.svg>
+`;
+
 exports[`Icon renders width and height 1`] = `
 <styled.svg
   height={30}
