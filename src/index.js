@@ -2,7 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
 
+import Icon from './components/Icon'
+
 render(
-    <h1>Hallo</h1>,
+    <Icon id="add" />,
     document.getElementById('root')
 );

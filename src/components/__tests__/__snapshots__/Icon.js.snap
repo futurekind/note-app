@@ -1,0 +1,27 @@
+exports[`Icon it renders 1`] = `
+<styled.svg
+  height={24}
+  viewBox="0 0 24 24"
+  width={24}
+  xmlns="http://www.w3.org/2000/svg" />
+`;
+
+exports[`Icon renders \`add\` icon 1`] = `
+<styled.svg
+  height={30}
+  viewBox="0 0 24 24"
+  width={30}
+  xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6"
+    fillRule="nonzero" />
+</styled.svg>
+`;
+
+exports[`Icon renders width and height 1`] = `
+<styled.svg
+  height={30}
+  viewBox="0 0 24 24"
+  width={30}
+  xmlns="http://www.w3.org/2000/svg" />
+`;
