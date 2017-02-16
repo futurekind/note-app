@@ -5,6 +5,6 @@ import './index.css';
 import Checkbox from './components/Checkbox'
 
 render(
-    <Checkbox type="orange" />,
+    <h1>Hallo</h1>,
     document.getElementById('root')
 );
