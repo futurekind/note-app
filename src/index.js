@@ -2,7 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
 
+import Divider from './components/Divider';
+
 render(
-    <h1>Hallo</h1>,
+    <Divider />,
     document.getElementById('root')
 );

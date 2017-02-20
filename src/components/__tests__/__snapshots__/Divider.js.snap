@@ -1,0 +1,4 @@
+exports[`Divider renders 1`] = `
+<styled.hr
+  bg="rgba(53, 53, 53, 0.18)" />
+`;
