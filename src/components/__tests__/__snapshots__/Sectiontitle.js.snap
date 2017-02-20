@@ -1,0 +1,35 @@
+exports[`Sectiontitle renders 1`] = `
+<styled.h2>
+  <styled.div>
+    <styled.div />
+  </styled.div>
+  <Divider />
+</styled.h2>
+`;
+
+exports[`Sectiontitle renders children 1`] = `
+<styled.h2>
+  <styled.div>
+    <styled.div>
+      Some Title
+    </styled.div>
+  </styled.div>
+  <Divider />
+</styled.h2>
+`;
+
+exports[`Sectiontitle renders icon 1`] = `
+<styled.h2>
+  <styled.div>
+    <styled.div>
+      Some Title
+    </styled.div>
+    <styled.div>
+      <Icon
+        id="edit"
+        size={24} />
+    </styled.div>
+  </styled.div>
+  <Divider />
+</styled.h2>
+`;
