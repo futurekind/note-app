@@ -19,7 +19,10 @@ const Label = styled.div`
 `
 
 const ViewIcon = styled.div`
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    align-items: center;
 `
 
 const Sectiontitle = ({
