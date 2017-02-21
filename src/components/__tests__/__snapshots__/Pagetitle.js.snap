@@ -1,0 +1,7 @@
+exports[`Pagetitle renders 1`] = `<styled.h1 />`;
+
+exports[`Pagetitle renders children 1`] = `
+<styled.h1>
+  Some Title
+</styled.h1>
+`;

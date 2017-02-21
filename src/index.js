@@ -2,9 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
 
-import Checkbox from './components/Checkbox'
+import Test from './components/Sectiontitle';
 
 render(
-    <Checkbox type="orange" />,
+    <Test iconId="edit">Hallo</Test>,
     document.getElementById('root')
 );
