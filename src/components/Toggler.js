@@ -1,13 +1,31 @@
 import React, {PropTypes} from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import SectionTitle from './Sectiontitle';
 
-const View = styled.aside``;
+const Header = styled.header`
+    cursor: pointer;
+`;
 
-const Header = styled.header``;
+const Body = styled.main`
+    height: 0;
+    overflow: hidden;
+    transform: translateY(-100px);
+    opacity: 0;
+    transition: transform .25s, 
+                opacity .25s .1s;
 
-const Body = styled.main``;
+    ${props => {
+        if(props.open) {
+            return css`
+                height: auto;
+                padding: 20px 0;
+                transform: none;
+                opacity: 1;
+            `
+        }
+    }}
+`;
 
 const Toggler = ({
     title,
@@ -16,8 +34,7 @@ const Toggler = ({
     onToggle
 }) => {
     return (
-        <View>
-            
+        <aside>
             <Header onClick={ () => onToggle(open) }>
                 <SectionTitle iconId={ open ? 'up' : 'down' }>{ title }</SectionTitle>
             </Header>
@@ -25,7 +42,7 @@ const Toggler = ({
             <Body open={ open }>
                 { children }
             </Body>
-        </View>
+        </aside>
     )
 }
 

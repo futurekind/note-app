@@ -1,5 +1,5 @@
 exports[`Toggler renders 1`] = `
-<styled.aside>
+<aside>
   <styled.header
     onClick={[Function]}>
     <Sectiontitle
@@ -9,11 +9,11 @@ exports[`Toggler renders 1`] = `
   </styled.header>
   <styled.main
     open={false} />
-</styled.aside>
+</aside>
 `;
 
 exports[`Toggler renders children 1`] = `
-<styled.aside>
+<aside>
   <styled.header
     onClick={[Function]}>
     <Sectiontitle
@@ -33,7 +33,7 @@ exports[`Toggler renders children 1`] = `
       three
     </p>
   </styled.main>
-</styled.aside>
+</aside>
 `;
 
 exports[`Toggler show up icon when open 1`] = `
