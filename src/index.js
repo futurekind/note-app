@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
 
-import Toggler from './components/Toggler';
+import MenuItem from './components/MenuItem';
 
 class App extends React.Component {
     constructor() {
@@ -15,17 +15,11 @@ class App extends React.Component {
 
     render() {
         return (
-            <Toggler 
-                title="Some Title" 
-                open={ this.state.open }
-                onToggle={ isToggled => this.setState({
-                    open: !isToggled
-                })}
-            >
-                <p>One</p>
-                <p>Two</p>
-                <p>Three</p>
-            </Toggler>
+            <MenuItem
+                title="Titel 1"
+                subtitle="Subtitel 1"
+                flagColor="red"
+            />
         )
     }
 }
