@@ -2,9 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
 
-import Test from './components/Sectiontitle';
+import Test from './components/CategoryToggler';
 
 render(
-    <Test iconId="edit">Hallo</Test>,
+    <Test checkboxType="red" label="Some Label" />,
     document.getElementById('root')
 );

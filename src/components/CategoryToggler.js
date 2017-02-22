@@ -4,10 +4,36 @@ import styled from 'styled-components';
 import Cb from './Checkbox';
 import Ic from './Icon';
 
-const View = styled.div``;
-const Checkbox = styled.div``;
-const Label = styled.div``;
-const Icon = styled.div``;
+const View = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const Checkbox = styled.div`
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+`;
+
+const Label = styled.div`
+    padding: 0 10px;
+    flex: 1;
+    font-weight: 300;
+    cursor: pointer;
+
+    &:hover {
+        & + * {
+            opacity: 1;
+        }
+    }
+`;
+
+const Icon = styled.div`
+    display: flex;
+    align-items: center;
+    opacity: 0;
+`;
+
 const Input = styled.input``
 
 const CategoryToggler = ({
