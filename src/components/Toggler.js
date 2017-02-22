@@ -12,16 +12,17 @@ const Body = styled.main``;
 const Toggler = ({
     title,
     open,
-    children
+    children,
+    onToggle
 }) => {
     return (
         <View>
             
-            <Header>
+            <Header onClick={ () => onToggle(open) }>
                 <SectionTitle iconId={ open ? 'up' : 'down' }>{ title }</SectionTitle>
             </Header>
 
-            <Body>
+            <Body open={ open }>
                 { children }
             </Body>
         </View>

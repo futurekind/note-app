@@ -38,4 +38,33 @@ describe('Toggler', () => {
         expect(toJSON(wrapper)).toMatchSnapshot()
     })
 
+    it('delegates onToggle with false', () => {
+        const spy = jest.fn();
+
+        wrapper.setProps({
+            onToggle: spy
+        })
+
+        const header = wrapper.children().at(0);
+        
+        header.simulate('click');
+
+        expect(spy).toHaveBeenLastCalledWith(false)
+    })
+
+    it('delegates onToggle with true', () => {
+        const spy = jest.fn();
+
+        wrapper.setProps({
+            onToggle: spy,
+            open: true
+        })
+
+        const header = wrapper.children().at(0);
+
+        header.simulate('click');
+
+        expect(spy).toHaveBeenLastCalledWith(true)
+    })
+
 })
