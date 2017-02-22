@@ -1,0 +1,40 @@
+exports[`Toggler renders 1`] = `
+<styled.aside>
+  <styled.header>
+    <Sectiontitle
+      iconId="down">
+      Some Title
+    </Sectiontitle>
+  </styled.header>
+  <styled.main />
+</styled.aside>
+`;
+
+exports[`Toggler renders children 1`] = `
+<styled.aside>
+  <styled.header>
+    <Sectiontitle
+      iconId="down">
+      title
+    </Sectiontitle>
+  </styled.header>
+  <styled.main>
+    <p>
+      one
+    </p>
+    <p>
+      two
+    </p>
+    <p>
+      three
+    </p>
+  </styled.main>
+</styled.aside>
+`;
+
+exports[`Toggler show up icon when open 1`] = `
+<Sectiontitle
+  iconId="up">
+  Some Title
+</Sectiontitle>
+`;
