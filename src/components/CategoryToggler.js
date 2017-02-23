@@ -43,10 +43,11 @@ const CategoryToggler = ({
     onCheck,
     editMode,
     onEdit,
-    onEditDone
+    onEditDone,
+    className
 }) => {
     return (
-        <View>
+        <View className={ className }>
             
             <Checkbox onClick={ () => onCheck(checked) }>
                 <Cb 
