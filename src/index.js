@@ -16,9 +16,11 @@ class App extends React.Component {
     render() {
         return (
             <MenuItem
+                index={ 1 }
                 title="Titel 1"
                 subtitle="Subtitel 1"
                 flagColor="red"
+                active
             />
         )
     }

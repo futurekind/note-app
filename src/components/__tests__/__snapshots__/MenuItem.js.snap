@@ -6,6 +6,7 @@ exports[`MenuItem renders 1`] = `
     <styled.div />
     <styled.span />
   </styled.div>
+  <Divider />
 </styled.div>
 `;
 
@@ -18,6 +19,7 @@ exports[`MenuItem renders active prop 1`] = `
     <styled.div />
     <styled.span />
   </styled.div>
+  <Divider />
 </styled.div>
 `;
 

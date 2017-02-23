@@ -1,15 +1,36 @@
 import React, {PropTypes} from 'react';
 import styled from 'styled-components';
 
-const View = styled.div``;
+import Divider from './Divider';
 
-const Title = styled.div``;
+const View = styled.div`
+    font-size: 14px;
+    cursor: pointer;
+    background-color: ${props => props.active ? '#E4E4E4' : 'transparent'}
+`;
 
-const Subtitle = styled.div``;
+const Title = styled.div`
+    padding: 10px 10px 5px;
+    font-weight: 600;
+`;
 
-const Meta = styled.div``;
+const Subtitle = styled.div`
+    flex: 1
+`;
 
-const Flag = styled.span``
+const Meta = styled.div`
+    padding: 0 10px 10px;
+    display: flex;
+    align-items: center;
+`;
+
+const Flag = styled.span`
+    width: 25px;
+    height: 7px;
+    border-radius: 3px;
+    display: block;
+    background-color: ${props => props.bgColor || 'transparent'};
+`
 
 const MenuItem = ({
     onClick,
@@ -26,6 +47,7 @@ const MenuItem = ({
                 <Subtitle>{ subtitle }</Subtitle>
                 <Flag bgColor={ flagColor } />
             </Meta>
+            <Divider />
         </View>
     )
 }
