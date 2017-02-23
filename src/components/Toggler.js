@@ -31,10 +31,11 @@ const Toggler = ({
     title,
     open,
     children,
-    onToggle
+    onToggle,
+    className
 }) => {
     return (
-        <aside>
+        <aside className={ className }>
             <Header onClick={ () => onToggle(open) }>
                 <SectionTitle iconId={ open ? 'up' : 'down' }>{ title }</SectionTitle>
             </Header>
