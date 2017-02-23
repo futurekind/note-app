@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
+import * as catSelectors from '../selectors/categories'
+import * as catActions from '../actions/categories'
+
 import Pagetitle from '../components/Pagetitle';
 import Toggler from '../components/Toggler';
 import CategoryToggler from '../components/CategoryToggler';
@@ -45,18 +48,48 @@ const Main = styled.main`
 `
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            editableCategory: ''
+        }
+    }
+
     render () {
+        const { categories } = this.props;
+        const { editableCategory } = this.state;
+
         return (
             <View>
                 <Pagetitle>Memorandum</Pagetitle>
 
                 <Body>
                     <Sidebar>
-                        <SidebarToggler title="Kategorien" open>
-                            <Category checkboxType="orange" label="Musik" />
-                            <Category checkboxType="green" label="Rezepte" />
-                            <Category checkboxType="purple" label="Todos" />
+                        <SidebarToggler 
+                            title="Kategorien" 
+                            open={ categories.open }
+                            onToggle={ this.handleToggle }
+                        >
+                            { categories.results.map(id => {
+                                const cat = categories.entities[id];
+
+                                return (
+                                    <Category 
+                                        key={ id }
+                                        value={ id }
+                                        checkboxType={ cat.color } 
+                                        label={ cat.label }
+                                        checked={ categories.active.indexOf(id) > -1 } 
+                                        editMode={ editableCategory === id }
+                                        onCheck={ this.handleCategoryCheck }
+                                        onEdit={ this.handleCategoryEdit }
+                                        onEditDone={ this.handleCategoryEditDone }
+                                    />
+                                )
+                            }) }
                         </SidebarToggler>
+                        
                         <SidebarToggler title="Listen" open></SidebarToggler>
                     </Sidebar>
 
@@ -65,6 +98,51 @@ class App extends Component {
             </View>
         )
     }
+
+    handleToggle = () => {
+        const { dispatch } = this.props;
+
+        dispatch(
+            catActions.toggleOpen()
+        )
+    }
+
+    handleCategoryCheck = (checked, value) => {
+        const { dispatch } = this.props;
+
+        dispatch(
+            catActions.toggleActive(value)
+        )
+    }
+
+    handleCategoryEdit = (value) => {
+        this.setState({
+            editableCategory: value
+        })
+    }
+
+    handleCategoryEditDone = (e, value) => {
+        const { dispatch } = this.props;
+
+        dispatch(
+            catActions.edit(value, {
+                label: e.target.value
+            })
+        )
+
+        this.setState({
+            editableCategory: ''
+        })
+    }
 }
 
-export default connect()(App)
+const mapState = state => ({
+    categories: {
+        results: catSelectors.getCategories(state),
+        entities: catSelectors.getCategoriesEntities(state),
+        open: catSelectors.getCategoriesOpen(state),
+        active: catSelectors.getCategoriesActive(state)
+    }
+})
+
+export default connect(mapState)(App)
