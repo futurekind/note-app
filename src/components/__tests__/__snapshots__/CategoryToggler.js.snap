@@ -28,6 +28,7 @@ exports[`CategoryToggler renders input field instead of label when in editMode 1
 <styled.div
   onClick={[Function]}>
   <styled.input
+    autoFocus={true}
     defaultValue="Some label"
     onBlur={[Function]}
     type="text" />

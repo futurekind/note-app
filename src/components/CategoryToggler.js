@@ -59,7 +59,7 @@ const CategoryToggler = ({
 
             <Label onClick={ () => onEdit(value) }>{ 
                 editMode 
-                    ? <Input type="text" defaultValue={ label } onBlur={ (e) => onEditDone(e, value) } />
+                    ? <Input type="text" autoFocus defaultValue={ label } onBlur={ (e) => onEditDone(e, value) } />
                     : label
             }</Label>
 
