@@ -16,11 +16,12 @@ const Body = styled.div`
 const Label = styled.div`
     padding: 20px 0;
     flex: 1;
+    font-size: 24px;
+    font-weight: 300;
 `
 
 const ViewIcon = styled.div`
     padding-left: 20px;
-    padding-right: 20px;
     display: flex;
     align-items: center;
 `
