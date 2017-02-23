@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import Pagetitle from '../components/Pagetitle';
 import Toggler from '../components/Toggler';
@@ -66,4 +67,4 @@ class App extends Component {
     }
 }
 
-export default App
+export default connect()(App)
