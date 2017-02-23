@@ -8,7 +8,7 @@ describe('CategoryToggler', () => {
     let wrapper;
 
     beforeEach(() => {
-        wrapper = shallow(<Toggler checkboxType="green" />)
+        wrapper = shallow(<Toggler checkboxType="green" checkboxValue="some value" />)
     })
 
     it('renders', () => {
@@ -44,7 +44,7 @@ describe('CategoryToggler', () => {
         const checkbox = wrapper.children().at(0);
 
         checkbox.simulate('click');
-        expect(spy).lastCalledWith(false)
+        expect(spy).lastCalledWith(false, 'some value')
     })
 
     it('delegates clicks on checkbox with true', () => {
@@ -58,7 +58,7 @@ describe('CategoryToggler', () => {
         const checkbox = wrapper.children().at(0);
 
         checkbox.simulate('click');
-        expect(spy).lastCalledWith(true)
+        expect(spy).lastCalledWith(true, 'some value')
     })
 
     it('renders input field instead of label when in editMode', () => {
