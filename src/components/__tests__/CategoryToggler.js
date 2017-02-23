@@ -8,7 +8,7 @@ describe('CategoryToggler', () => {
     let wrapper;
 
     beforeEach(() => {
-        wrapper = shallow(<Toggler checkboxType="green" checkboxValue="some value" />)
+        wrapper = shallow(<Toggler checkboxType="green" value="some value" />)
     })
 
     it('renders', () => {
@@ -90,7 +90,7 @@ describe('CategoryToggler', () => {
 
         input.simulate('blur', event);
         
-        expect(spy).toBeCalledWith(event)
+        expect(spy).toBeCalledWith(event, 'some value')
 
     })
 

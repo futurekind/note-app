@@ -45,21 +45,21 @@ const CategoryToggler = ({
     onEdit,
     onEditDone,
     className,
-    checkboxValue
+    value
 }) => {
     return (
         <View className={ className }>
             
-            <Checkbox onClick={ () => onCheck(checked, checkboxValue) }>
+            <Checkbox onClick={ () => onCheck(checked, value) }>
                 <Cb 
                     type={ checkboxType }
                     checked={ checked }
                 />
             </Checkbox>
 
-            <Label onClick={ onEdit }>{ 
+            <Label onClick={ () => onEdit(value) }>{ 
                 editMode 
-                    ? <Input type="text" defaultValue={ label } onBlur={ onEditDone } />
+                    ? <Input type="text" defaultValue={ label } onBlur={ (e) => onEditDone(e, value) } />
                     : label
             }</Label>
 
@@ -87,7 +87,7 @@ CategoryToggler.propTypes = {
         'blue',
         'purple'
     ]).isRequired,
-    checkboxValue: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
     checked: PropTypes.bool,
     editMode: PropTypes.bool,
     label: PropTypes.string,
