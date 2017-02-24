@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import * as catSelectors from '../selectors/categories'
 import * as catActions from '../actions/categories'
+import * as notesSelectors from '../selectors/notes'
+import * as notesActions from '../actions/notes'
 
 import Pagetitle from '../components/Pagetitle';
 import Toggler from '../components/Toggler';
@@ -57,7 +59,7 @@ class App extends Component {
     }
 
     render () {
-        const { categories } = this.props;
+        const { categories, notes } = this.props;
         const { editableCategory } = this.state;
 
         return (
@@ -69,7 +71,7 @@ class App extends Component {
                         <SidebarToggler 
                             title="Kategorien" 
                             open={ categories.open }
-                            onToggle={ this.handleToggle }
+                            onToggle={ this.handleToggleCategories }
                         >
                             { categories.results.map(id => {
                                 const cat = categories.entities[id];
@@ -90,7 +92,11 @@ class App extends Component {
                             }) }
                         </SidebarToggler>
                         
-                        <SidebarToggler title="Listen" open></SidebarToggler>
+                        <SidebarToggler 
+                            title="Listen" 
+                            open={ !notes.open }
+                            onToggle={ this.handleToggleNotes }
+                        ></SidebarToggler>
                     </Sidebar>
 
                     <Main></Main>
@@ -99,7 +105,7 @@ class App extends Component {
         )
     }
 
-    handleToggle = () => {
+    handleToggleCategories = () => {
         const { dispatch } = this.props;
 
         dispatch(
@@ -134,6 +140,14 @@ class App extends Component {
             editableCategory: ''
         })
     }
+
+    handleToggleNotes = () => {
+        const { dispatch } = this.props;
+
+        dispatch(
+            notesActions.toggleOpen()
+        )
+    }
 }
 
 const mapState = state => ({
@@ -142,6 +156,12 @@ const mapState = state => ({
         entities: catSelectors.getCategoriesEntities(state),
         open: catSelectors.getCategoriesOpen(state),
         active: catSelectors.getCategoriesActive(state)
+    },
+    notes: {
+        results: notesSelectors.getNotes(state),
+        entities: notesSelectors.getNotesEntities(state),
+        open: notesSelectors.getNotesOpen(state),
+        active: notesSelectors.getNotesActive(state)
     }
 })
 
