@@ -54,6 +54,19 @@ exports[`Icon renders \`edit\` icon 1`] = `
 </styled.svg>
 `;
 
+exports[`Icon renders \`up\` icon 1`] = `
+<styled.svg
+  height={30}
+  viewBox="0 0 24 24"
+  width={30}
+  xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M7.41 8.84L12 13.42l4.59-4.58L18 10.25l-6 6-6-6"
+    fillRule="nonzero"
+    transform="rotate(180 12 12)" />
+</styled.svg>
+`;
+
 exports[`Icon renders width and height 1`] = `
 <styled.svg
   height={30}

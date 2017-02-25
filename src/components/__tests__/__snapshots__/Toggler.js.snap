@@ -1,0 +1,44 @@
+exports[`Toggler renders 1`] = `
+<aside>
+  <styled.header
+    onClick={[Function]}>
+    <Sectiontitle
+      iconId="down">
+      Some Title
+    </Sectiontitle>
+  </styled.header>
+  <styled.main
+    open={false} />
+</aside>
+`;
+
+exports[`Toggler renders children 1`] = `
+<aside>
+  <styled.header
+    onClick={[Function]}>
+    <Sectiontitle
+      iconId="down">
+      title
+    </Sectiontitle>
+  </styled.header>
+  <styled.main
+    open={false}>
+    <p>
+      one
+    </p>
+    <p>
+      two
+    </p>
+    <p>
+      three
+    </p>
+  </styled.main>
+</aside>
+`;
+
+exports[`Toggler show up icon when open 1`] = `
+<Sectiontitle
+  iconId="up">
+  Some Title
+</Sectiontitle>
+`;

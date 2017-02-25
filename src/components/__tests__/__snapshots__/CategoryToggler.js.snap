@@ -1,0 +1,43 @@
+exports[`CategoryToggler renders 1`] = `
+<styled.div>
+  <styled.div
+    onClick={[Function]}>
+    <Checkbox
+      checked={false}
+      onCheck={[Function]}
+      type="green" />
+  </styled.div>
+  <styled.div
+    onClick={[Function]} />
+  <styled.div>
+    <Icon
+      id="edit"
+      size={16} />
+  </styled.div>
+</styled.div>
+`;
+
+exports[`CategoryToggler renders checked checkbox 1`] = `
+<Checkbox
+  checked={true}
+  onCheck={[Function]}
+  type="green" />
+`;
+
+exports[`CategoryToggler renders input field instead of label when in editMode 1`] = `
+<styled.div
+  onClick={[Function]}>
+  <styled.input
+    autoFocus={true}
+    defaultValue="Some label"
+    onBlur={[Function]}
+    type="text" />
+</styled.div>
+`;
+
+exports[`CategoryToggler renders label 1`] = `
+<styled.div
+  onClick={[Function]}>
+  Some Label
+</styled.div>
+`;

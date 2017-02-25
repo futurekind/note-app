@@ -1,0 +1,44 @@
+exports[`MenuItem renders 1`] = `
+<styled.div
+  onClick={[Function]}>
+  <styled.div />
+  <styled.div>
+    <styled.div />
+    <styled.span />
+  </styled.div>
+  <Divider />
+</styled.div>
+`;
+
+exports[`MenuItem renders active prop 1`] = `
+<styled.div
+  active={true}
+  onClick={[Function]}>
+  <styled.div />
+  <styled.div>
+    <styled.div />
+    <styled.span />
+  </styled.div>
+  <Divider />
+</styled.div>
+`;
+
+exports[`MenuItem renders flag color 1`] = `
+<styled.span
+  bgColor="red" />
+`;
+
+exports[`MenuItem renders subtitle 1`] = `
+<styled.div>
+  <styled.div>
+    Some Subtitle
+  </styled.div>
+  <styled.span />
+</styled.div>
+`;
+
+exports[`MenuItem renders title 1`] = `
+<styled.div>
+  Some Title
+</styled.div>
+`;

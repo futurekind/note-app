@@ -1,10 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
-import './index.css';
+import { Provider } from 'react-redux';
 
-import Test from './components/Sectiontitle';
+import './index.css';
+import store from './store/';
+import App from './container/App';
 
 render(
-    <Test iconId="edit">Hallo</Test>,
+    <Provider store={ store }>
+        <App />
+    </Provider>,
     document.getElementById('root')
 );
