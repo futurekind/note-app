@@ -10,6 +10,7 @@ import * as notesActions from '../actions/notes'
 import Pagetitle from '../components/Pagetitle';
 import Toggler from '../components/Toggler';
 import CategoryToggler from '../components/CategoryToggler';
+import MenuItem from '../components/MenuItem';
 
 const View = styled.div`
     max-width: 1024px;
@@ -96,7 +97,23 @@ class App extends Component {
                             title="Listen" 
                             open={ !notes.open }
                             onToggle={ this.handleToggleNotes }
-                        ></SidebarToggler>
+                        >
+                            { notes.results.map((id, i) => {
+                                const note = notes.entities[id];
+
+                                return (
+                                    <MenuItem
+                                        key={ note.id }
+                                        index={ note.id }
+                                        active={ notes.active === note.id }
+                                        title={ note.title }
+                                        subtitle={ note.updatedAtHumanized }
+                                        onClick={ this.handleNoteItemClick }
+                                    />
+                                )
+                            }) }
+                        </SidebarToggler>
+                        <button onClick={ this.handleAddNote }>Add</button>
                     </Sidebar>
 
                     <Main></Main>
@@ -147,6 +164,25 @@ class App extends Component {
         dispatch(
             notesActions.toggleOpen()
         )
+    }
+
+    handleAddNote = () => {
+        const { dispatch } = this.props;
+        const id = new Date().getTime();
+
+        dispatch(notesActions.create({
+            id,
+            updatedAt: new Date().toISOString(),
+            title: 'New Note'
+        }))
+
+        this.handleNoteItemClick(id)
+    }
+
+    handleNoteItemClick = (index) => {
+        const { dispatch } = this.props;
+
+        dispatch(notesActions.setActive(index))
     }
 }
 
