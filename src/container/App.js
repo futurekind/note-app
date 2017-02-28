@@ -15,6 +15,8 @@ import CategoryToggler from '../components/CategoryToggler';
 import MenuItem from '../components/MenuItem';
 import Icon from '../components/Icon'
 
+import { colors } from '../utils/styles'
+
 const View = styled.div`
     max-width: 1024px;
     margin: 0 auto;
@@ -81,7 +83,9 @@ class App extends Component {
         const notesLength = notes.results.length;
 
         if(prevNotesLength !== notesLength) {
-            this.handleNoteItemClick(0)
+            setTimeout(() => {
+                this.handleNoteItemClick(0)
+            }, 500)
         }
     }
     
@@ -127,11 +131,12 @@ class App extends Component {
                         >
                             <TransitionGroup
                                 transitionName="menu-item"
-                                transitionEnterTimeout={500}
-                                transitionLeaveTimeout={500}
+                                transitionEnterTimeout={10500}
+                                transitionLeaveTimeout={10500}
                             >
                                 { notes.results.map((id, i) => {
                                     const note = notes.entities[id];
+                                    const category = categories.entities[note.category_id] || {}
 
                                     return (
                                         <MenuItem
@@ -141,6 +146,7 @@ class App extends Component {
                                             title={ note.title }
                                             subtitle={ note.updatedAtHumanized }
                                             onClick={ this.handleNoteItemClick }
+                                            flagColor={ colors[category.color] }
                                         />
                                     )
                                 }) }
@@ -211,7 +217,8 @@ class App extends Component {
         dispatch(notesActions.create({
             id,
             updatedAt: new Date().toISOString(),
-            title: 'New Note'
+            title: 'New Note',
+            category_id: 'cat4'
         }))
 
     }
