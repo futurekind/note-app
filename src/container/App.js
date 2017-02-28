@@ -11,6 +11,7 @@ import Pagetitle from '../components/Pagetitle';
 import Toggler from '../components/Toggler';
 import CategoryToggler from '../components/CategoryToggler';
 import MenuItem from '../components/MenuItem';
+import Icon from '../components/Icon'
 
 const View = styled.div`
     max-width: 1024px;
@@ -44,6 +45,14 @@ const SidebarToggler = styled(Toggler)`
     max-height: 50%;
     display: flex;
     flex-direction: column;
+`
+
+const AddBtnContainer = styled.div`
+    text-align: right
+`
+
+const AddBtn = styled.span`
+    cursor: pointer;
 `
 
 const Category = styled(CategoryToggler)`
@@ -118,7 +127,12 @@ class App extends Component {
                                 )
                             }) }
                         </SidebarToggler>
-                        <button onClick={ this.handleAddNote }>Add</button>
+                        
+                        <AddBtnContainer>
+                            <AddBtn onClick={ this.handleAddNote }>
+                                <Icon id="add" />
+                            </AddBtn>
+                        </AddBtnContainer>
                     </Sidebar>
 
                     <Main></Main>
