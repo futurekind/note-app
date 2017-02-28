@@ -6,7 +6,19 @@ import Divider from './Divider';
 const View = styled.div`
     font-size: 14px;
     cursor: pointer;
-    background-color: ${props => props.active ? '#E4E4E4' : 'transparent'}
+    background-color: ${props => props.active ? '#E4E4E4' : 'transparent'};
+
+    &.menu-item-enter {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+
+    &.menu-item-enter-active {
+        opacity: 1;
+        transform: none;
+        transition: opacity .5s ease-out,
+                    transform .5s ease-out;
+    }
 `;
 
 const Title = styled.div`

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import TransitionGroup from 'react-addons-css-transition-group'
 
 import * as catSelectors from '../selectors/categories'
 import * as catActions from '../actions/categories'
@@ -112,20 +113,26 @@ class App extends Component {
                             open={ !notes.open }
                             onToggle={ this.handleToggleNotes }
                         >
-                            { notes.results.map((id, i) => {
-                                const note = notes.entities[id];
+                            <TransitionGroup
+                                transitionName="menu-item"
+                                transitionEnterTimeout={500}
+                                transitionLeaveTimeout={500}
+                            >
+                                { notes.results.map((id, i) => {
+                                    const note = notes.entities[id];
 
-                                return (
-                                    <MenuItem
-                                        key={ note.id }
-                                        index={ note.id }
-                                        active={ notes.active === note.id }
-                                        title={ note.title }
-                                        subtitle={ note.updatedAtHumanized }
-                                        onClick={ this.handleNoteItemClick }
-                                    />
-                                )
-                            }) }
+                                    return (
+                                        <MenuItem
+                                            key={ note.id }
+                                            index={ note.id }
+                                            active={ notes.active === note.id }
+                                            title={ note.title }
+                                            subtitle={ note.updatedAtHumanized }
+                                            onClick={ this.handleNoteItemClick }
+                                        />
+                                    )
+                                }) }
+                            </TransitionGroup>
                         </SidebarToggler>
                         
                         <AddBtnContainer>
