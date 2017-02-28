@@ -34,11 +34,16 @@ const Sidebar = styled.aside`
     @media (min-width: 40em) {
         position: relative;
         transform: none;
+        display: flex;
+        flex-direction: column;
     }
 `
 
 const SidebarToggler = styled(Toggler)`
     margin-bottom: 40px;
+    max-height: 50%;
+    display: flex;
+    flex-direction: column;
 `
 
 const Category = styled(CategoryToggler)`

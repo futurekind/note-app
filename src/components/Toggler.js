@@ -18,10 +18,12 @@ const Body = styled.main`
     ${props => {
         if(props.open) {
             return css`
-                height: auto;
+                height: 100%;
                 padding: 20px 0;
                 transform: none;
                 opacity: 1;
+                overflow-y: auto;
+                flex: 1;
             `
         }
     }}
