@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import TransitionGroup from 'react-addons-css-transition-group'
+import uuid from 'uuid/v4';
 
 import * as catSelectors from '../selectors/categories'
 import * as catActions from '../actions/categories'
@@ -74,6 +75,17 @@ class App extends Component {
         }
     }
 
+    componentDidUpdate (prevProps, prevState) {
+        const { notes } = this.props;
+        const prevNotesLength = prevProps.notes.results.length;
+        const notesLength = notes.results.length;
+
+        if(prevNotesLength !== notesLength) {
+            this.handleNoteItemClick(0)
+        }
+    }
+    
+
     render () {
         const { categories, notes } = this.props;
         const { editableCategory } = this.state;
@@ -124,7 +136,7 @@ class App extends Component {
                                     return (
                                         <MenuItem
                                             key={ note.id }
-                                            index={ note.id }
+                                            index={ i }
                                             active={ notes.active === note.id }
                                             title={ note.title }
                                             subtitle={ note.updatedAtHumanized }
@@ -194,7 +206,7 @@ class App extends Component {
 
     handleAddNote = () => {
         const { dispatch } = this.props;
-        const id = new Date().getTime();
+        const id = uuid();
 
         dispatch(notesActions.create({
             id,
@@ -202,13 +214,13 @@ class App extends Component {
             title: 'New Note'
         }))
 
-        this.handleNoteItemClick(id)
     }
 
     handleNoteItemClick = (index) => {
-        const { dispatch } = this.props;
-
-        dispatch(notesActions.setActive(index))
+        const { dispatch, notes } = this.props;
+        const id = notes.results[index]
+        
+        dispatch(notesActions.setActive(id))
     }
 }
 
