@@ -113,7 +113,8 @@ class Detail extends Component {
 
         dispatch(
             notesActions.edit(note.id, {
-                title: value
+                title: value,
+                updatedAt: new Date().toISOString()
             })
         )
 

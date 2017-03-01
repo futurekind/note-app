@@ -10,7 +10,7 @@ store.dispatch({
     type: 'NOTES__CREATE',
     payload: {
         id: 'note1',
-        updatedAt: '2017-03-01T13:15:00',
+        updatedAt: '2017-03-01T15:46:09.752Z',
         title: 'Some new Note',
         category_id: 'cat3'
     }
