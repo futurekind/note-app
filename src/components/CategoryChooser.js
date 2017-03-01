@@ -53,6 +53,10 @@ const Body = styled.ul`
     box-shadow: rgba(0, 0, 0, .3) 0 3px 7px;
     text-align: left;
     list-style: none;
+    transform: ${props => props.open 
+        ? 'scale(1)'
+        : 'scale(0)'
+    };
 `
 
 const CategoryBtn = styled.li`

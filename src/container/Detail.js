@@ -54,7 +54,7 @@ class Detail extends Component {
 
         this.state = {
             editModeTitle: false,
-            catChooserOpen: true
+            catChooserOpen: false
         }
     }
 
@@ -143,6 +143,10 @@ class Detail extends Component {
                 updatedAt: new Date().toISOString()
             })
         )
+
+        this.setState({
+            catChooserOpen: false
+        })
     }
 }
 
