@@ -14,6 +14,7 @@ import Toggler from '../components/Toggler';
 import CategoryToggler from '../components/CategoryToggler';
 import MenuItem from '../components/MenuItem';
 import Icon from '../components/Icon'
+import Detail from './Detail';
 
 import { colors } from '../utils/styles'
 
@@ -57,6 +58,11 @@ const AddBtnContainer = styled.div`
 
 const AddBtn = styled.span`
     cursor: pointer;
+    transition: color .2s;
+
+    &:hover {
+        color: ${ colors.blueDark };
+    }
 `
 
 const Category = styled(CategoryToggler)`
@@ -64,6 +70,7 @@ const Category = styled(CategoryToggler)`
 `
 
 const Main = styled.main`
+    padding: 0 20px;
     flex: 1;
     background: #fff;
 `
@@ -101,6 +108,7 @@ class App extends Component {
                 <Body>
                     <Sidebar>
                         <SidebarToggler 
+                            topspace
                             title="Kategorien" 
                             open={ categories.open }
                             onToggle={ this.handleToggleCategories }
@@ -160,7 +168,9 @@ class App extends Component {
                         </AddBtnContainer>
                     </Sidebar>
 
-                    <Main></Main>
+                    <Main>
+                        <Detail />
+                    </Main>
                 </Body>
             </View>
         )
