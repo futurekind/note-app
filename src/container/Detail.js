@@ -7,12 +7,24 @@ import * as notesSelectores from '../selectors/notes';
 import * as notesActions from '../actions/notes';
 
 import Sectiontitle from '../components/Sectiontitle';
+import Divider from '../components/Divider';
 
 const Title = styled.header`
     cursor: pointer;
 `
 
-const EditTitle = styled.input``
+const EditTitle = styled.input`
+    width: 100%;
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: 300;
+    font-family: 'Source Sans Pro', sans-serif;
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+`
 
 class Detail extends Component {
     constructor(props) {
@@ -32,10 +44,14 @@ class Detail extends Component {
         return (
             <Title onClick={ this.openTitleEditMode }>
                 { editModeTitle && 
-                    <EditTitle 
-                        defaultValue={ note.title } 
-                        onBlur={ this.handleTitleChange }
-                    /> 
+                    <div>
+                        <EditTitle 
+                            autoFocus
+                            defaultValue={ note.title } 
+                            onBlur={ this.handleTitleChange }
+                        />
+                        <Divider />
+                    </div>
                 }
                 { !editModeTitle && 
                     <Sectiontitle iconId="edit">
