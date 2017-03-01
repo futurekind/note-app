@@ -27,6 +27,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 entities: {
+                    ...state.entities,
                     [action.id]: {
                         ...state.entities[action.id],
                         ...action.payload
