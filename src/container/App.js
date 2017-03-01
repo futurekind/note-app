@@ -57,6 +57,11 @@ const AddBtnContainer = styled.div`
 
 const AddBtn = styled.span`
     cursor: pointer;
+    transition: color .2s;
+
+    &:hover {
+        color: ${ colors.blueDark };
+    }
 `
 
 const Category = styled(CategoryToggler)`
