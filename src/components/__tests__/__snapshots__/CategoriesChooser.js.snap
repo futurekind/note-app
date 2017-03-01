@@ -2,7 +2,7 @@ exports[`CategoryChooser renders 1`] = `
 <styled.div>
   <styled.div>
     <styled.div>
-      Keine Kategorie
+      Kategorie
     </styled.div>
     <Styled(Icon)
       id="down"
