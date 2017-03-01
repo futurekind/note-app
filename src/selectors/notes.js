@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { getRelativeDate } from '../utils/date';
 
 const getResults = state => state.notes.results;
 const getEntities = state => state.notes.entities;
@@ -18,6 +19,19 @@ export const getNotes = createSelector(
     })
 )
 
-export const getNotesEntities = getEntities;
+export const getNotesEntities = createSelector(
+    getEntities,
+    entities => Object.keys(entities).reduce((prev, key) => {
+        return {
+            ...prev,
+            [key]: {
+                ...entities[key],
+                updatedAtHumanized: getRelativeDate(
+                    entities[key].updatedAt
+                )
+            }
+        }
+    }, {})
+)
 export const getNotesActive = getActive;
 export const getNotesOpen = getOpen;

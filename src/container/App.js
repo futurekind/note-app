@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import TransitionGroup from 'react-addons-css-transition-group'
+import uuid from 'uuid/v4';
 
 import * as catSelectors from '../selectors/categories'
 import * as catActions from '../actions/categories'
@@ -10,6 +12,10 @@ import * as notesActions from '../actions/notes'
 import Pagetitle from '../components/Pagetitle';
 import Toggler from '../components/Toggler';
 import CategoryToggler from '../components/CategoryToggler';
+import MenuItem from '../components/MenuItem';
+import Icon from '../components/Icon'
+
+import { colors } from '../utils/styles'
 
 const View = styled.div`
     max-width: 1024px;
@@ -33,11 +39,24 @@ const Sidebar = styled.aside`
     @media (min-width: 40em) {
         position: relative;
         transform: none;
+        display: flex;
+        flex-direction: column;
     }
 `
 
 const SidebarToggler = styled(Toggler)`
     margin-bottom: 40px;
+    max-height: 50%;
+    display: flex;
+    flex-direction: column;
+`
+
+const AddBtnContainer = styled.div`
+    text-align: right
+`
+
+const AddBtn = styled.span`
+    cursor: pointer;
 `
 
 const Category = styled(CategoryToggler)`
@@ -57,6 +76,19 @@ class App extends Component {
             editableCategory: ''
         }
     }
+
+    componentDidUpdate (prevProps, prevState) {
+        const { notes } = this.props;
+        const prevNotesLength = prevProps.notes.results.length;
+        const notesLength = notes.results.length;
+
+        if(prevNotesLength !== notesLength) {
+            setTimeout(() => {
+                this.handleNoteItemClick(0)
+            }, 500)
+        }
+    }
+    
 
     render () {
         const { categories, notes } = this.props;
@@ -96,7 +128,36 @@ class App extends Component {
                             title="Listen" 
                             open={ !notes.open }
                             onToggle={ this.handleToggleNotes }
-                        ></SidebarToggler>
+                        >
+                            <TransitionGroup
+                                transitionName="menu-item"
+                                transitionEnterTimeout={10500}
+                                transitionLeaveTimeout={10500}
+                            >
+                                { notes.results.map((id, i) => {
+                                    const note = notes.entities[id];
+                                    const category = categories.entities[note.category_id] || {}
+
+                                    return (
+                                        <MenuItem
+                                            key={ note.id }
+                                            index={ i }
+                                            active={ notes.active === note.id }
+                                            title={ note.title }
+                                            subtitle={ note.updatedAtHumanized }
+                                            onClick={ this.handleNoteItemClick }
+                                            flagColor={ colors[category.color] }
+                                        />
+                                    )
+                                }) }
+                            </TransitionGroup>
+                        </SidebarToggler>
+                        
+                        <AddBtnContainer>
+                            <AddBtn onClick={ this.handleAddNote }>
+                                <Icon id="add" />
+                            </AddBtn>
+                        </AddBtnContainer>
                     </Sidebar>
 
                     <Main></Main>
@@ -147,6 +208,26 @@ class App extends Component {
         dispatch(
             notesActions.toggleOpen()
         )
+    }
+
+    handleAddNote = () => {
+        const { dispatch } = this.props;
+        const id = uuid();
+
+        dispatch(notesActions.create({
+            id,
+            updatedAt: new Date().toISOString(),
+            title: 'New Note',
+            category_id: 'cat4'
+        }))
+
+    }
+
+    handleNoteItemClick = (index) => {
+        const { dispatch, notes } = this.props;
+        const id = notes.results[index]
+        
+        dispatch(notesActions.setActive(id))
     }
 }
 
