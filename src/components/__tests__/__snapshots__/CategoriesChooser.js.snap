@@ -1,0 +1,21 @@
+exports[`CategoryChooser renders 1`] = `
+<styled.div>
+  <styled.div>
+    <styled.div>
+      Keine Kategorie
+    </styled.div>
+    <Styled(Icon)
+      id="down"
+      size={18} />
+  </styled.div>
+</styled.div>
+`;
+
+exports[`CategoryChooser renders list of categories 1`] = `
+<styled.ul>
+  <styled.li
+    color="red" />
+  <styled.li
+    color="green" />
+</styled.ul>
+`;
