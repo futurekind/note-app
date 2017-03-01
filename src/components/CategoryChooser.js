@@ -2,10 +2,12 @@ import React, { PropTypes } from 'react'
 import styled from 'styled-components';
 
 import Icon from './Icon';
+import Checkbox from './Checkbox'
 
 const View = styled.div`
     width: 200px;
     display: inline-block;
+    position: relative;
 `
 
 const Label = styled.div`
@@ -39,18 +41,45 @@ const LabelCategoriesItem = styled.li`
     background-color: ${props => props.color};
 `
 
-const LabelIcon = styled(Icon)``
+const Body = styled.ul`
+    width: 100%;
+    margin: 0;
+    padding: 5px 0;
+    border-radius: 3px;
+    position: absolute;
+    top: 95%;
+    right: 0;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, .3) 0 3px 7px;
+    text-align: left;
+    list-style: none;
+`
+
+const CategoryBtn = styled.li`
+    padding: 5px 10px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+`
+
+const CategoryBtnLabel = styled.div`
+    padding: 0 10px;
+    font-size: 14px;
+    font-weight: 300;
+`
 
 const CategoryChooser = ({
     categories,
-    open
+    open,
+    onClickLabel,
+    onClickCategory
 }) => {
     
     const activeCategories = categories.filter(cat => cat.active)
 
     return (
         <View>
-            <Label>
+            <Label onClick={ onClickLabel }>
                 { activeCategories.length === 0 &&
                     <LabelNoEntries>Kategorie</LabelNoEntries>
                 }
@@ -66,15 +95,29 @@ const CategoryChooser = ({
                         }) }
                     </LabelCategories>
                 }
-                <LabelIcon id="down" size={18} />
+                <Icon id="down" size={18} />
             </Label>
+            { open && 
+                <Body open={ open }>
+                    { categories.map(cat => {
+                        return (
+                            <CategoryBtn key={ cat.id } onClick={ () => onClickCategory(cat.id) }>
+                                <Checkbox type={ cat.colorCode } checked={ cat.active } />
+                                <CategoryBtnLabel>{ cat.label }</CategoryBtnLabel>
+                            </CategoryBtn>
+                        )
+                    }) }
+                </Body>
+            }
         </View>
     )
 }
 
 CategoryChooser.defaultProps = {
     categories: [],
-    open: false
+    open: false,
+    onClickLabel: () => {},
+    onClickCategory: () => {},
 }
 
 CategoryChooser.propTypes = {
@@ -82,11 +125,14 @@ CategoryChooser.propTypes = {
         PropTypes.shape({
             id: PropTypes.string,
             color: PropTypes.string,
+            colorCode: PropTypes.string,
             label: PropTypes.string,
             active: PropTypes.bool,
         }),
     ),
     open: PropTypes.bool,
+    onClickLabel: PropTypes.func,
+    onClickCategory: PropTypes.func,
 }
 
 export default CategoryChooser

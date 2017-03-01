@@ -41,6 +41,7 @@ const mapCategoriesForChooser = ({results, entities}, activeCategory) => {
         return {
             id,
             color: colors[cat.color],
+            colorCode: cat.color, 
             label: cat.label,
             active: id === activeCategory
         }
@@ -52,13 +53,14 @@ class Detail extends Component {
         super(props);
 
         this.state = {
-            editModeTitle: false
+            editModeTitle: false,
+            catChooserOpen: true
         }
     }
 
     render () {
         const { note, categories } = this.props;
-        const { editModeTitle } = this.state;
+        const { editModeTitle, catChooserOpen } = this.state;
 
         if(!note) return null;
 
@@ -83,7 +85,12 @@ class Detail extends Component {
                 </Title>
 
                 <CatChooser>
-                    <Chooser categories={ mapCategoriesForChooser(categories, note.category_id) } />
+                    <Chooser 
+                        open={ catChooserOpen }
+                        onClickLabel={ this.handleClickCatChooserLabel }
+                        onClickCategory={ this.handleClickCategory }
+                        categories={ mapCategoriesForChooser(categories, note.category_id) } 
+                    />
                 </CatChooser>
             </div>
         )
@@ -119,6 +126,23 @@ class Detail extends Component {
         )
 
         this.closeTitleEditMode()
+    }
+
+    handleClickCatChooserLabel = () => {
+        this.setState({
+            catChooserOpen: !this.state.catChooserOpen
+        })
+    }
+
+    handleClickCategory = (id) => {
+        const { dispatch, note } = this.props;
+
+        dispatch(
+            notesActions.edit(note.id, {
+                category_id: id,
+                updatedAt: new Date().toISOString()
+            })
+        )
     }
 }
 

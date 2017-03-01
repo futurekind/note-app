@@ -1,20 +1,52 @@
 exports[`CategoryChooser renders 1`] = `
 <styled.div>
-  <styled.div>
+  <styled.div
+    onClick={[Function]}>
     <styled.div>
       Kategorie
     </styled.div>
-    <Styled(Icon)
+    <Icon
       id="down"
       size={18} />
   </styled.div>
 </styled.div>
 `;
 
+exports[`CategoryChooser renders body with all categories 1`] = `
+<styled.ul
+  open={true}>
+  <styled.li
+    onClick={[Function]}>
+    <Checkbox
+      checked={false}
+      onCheck={[Function]} />
+    <styled.div>
+      Cat 1
+    </styled.div>
+  </styled.li>
+  <styled.li
+    onClick={[Function]}>
+    <Checkbox
+      checked={false}
+      onCheck={[Function]} />
+    <styled.div>
+      Cat 2
+    </styled.div>
+  </styled.li>
+  <styled.li
+    onClick={[Function]}>
+    <Checkbox
+      checked={true}
+      onCheck={[Function]} />
+    <styled.div>
+      Cat 3
+    </styled.div>
+  </styled.li>
+</styled.ul>
+`;
+
 exports[`CategoryChooser renders list of categories 1`] = `
 <styled.ul>
-  <styled.li
-    color="red" />
   <styled.li
     color="green" />
 </styled.ul>
