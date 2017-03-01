@@ -7,6 +7,7 @@ const View = styled.div`
     font-size: 14px;
     cursor: pointer;
     background-color: ${props => props.active ? '#E4E4E4' : 'transparent'};
+    transition: background-color .25s;
 
     &.menu-item-enter {
         opacity: 0;

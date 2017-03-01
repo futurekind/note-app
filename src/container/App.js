@@ -101,6 +101,7 @@ class App extends Component {
                 <Body>
                     <Sidebar>
                         <SidebarToggler 
+                            topspace
                             title="Kategorien" 
                             open={ categories.open }
                             onToggle={ this.handleToggleCategories }

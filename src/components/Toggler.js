@@ -19,11 +19,19 @@ const Body = styled.main`
         if(props.open) {
             return css`
                 height: 100%;
-                padding: 20px 0;
                 transform: none;
                 opacity: 1;
                 overflow-y: auto;
                 flex: 1;
+            `
+        }
+
+    }}
+
+    ${props => {
+        if(props.topspace) {
+            return css`
+                padding-top: 20px;
             `
         }
     }}
@@ -34,7 +42,8 @@ const Toggler = ({
     open,
     children,
     onToggle,
-    className
+    className,
+    topspace
 }) => {
     return (
         <aside className={ className }>
@@ -42,7 +51,7 @@ const Toggler = ({
                 <SectionTitle iconId={ open ? 'up' : 'down' }>{ title }</SectionTitle>
             </Header>
 
-            <Body open={ open }>
+            <Body open={ open } topspace={ topspace }>
                 { children }
             </Body>
         </aside>
@@ -57,6 +66,7 @@ Toggler.defaultProps = {
 Toggler.propTypes = {
     title: PropTypes.string.isRequired,
     open: PropTypes.bool,
+    topspace: PropTypes.bool,
     onToggle: PropTypes.func,
     children: PropTypes.any,
 }
