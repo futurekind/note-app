@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import { colors } from '../utils/styles';
+
 import * as notesSelectores from '../selectors/notes';
+import * as categoriesSelectors from '../selectors/categories';
 
 import * as notesActions from '../actions/notes';
 
 import Sectiontitle from '../components/Sectiontitle';
 import Divider from '../components/Divider';
+import Chooser from '../components/CategoryChooser'
 
 const Title = styled.header`
     cursor: pointer;
@@ -26,6 +30,23 @@ const EditTitle = styled.input`
     }
 `
 
+const CatChooser = styled.div`
+    text-align: right;
+`
+
+const mapCategoriesForChooser = ({results, entities}, activeCategory) => {
+    return results.map(id => {
+        const cat = entities[id];
+
+        return {
+            id,
+            color: colors[cat.color],
+            label: cat.label,
+            active: id === activeCategory
+        }
+    })
+}
+
 class Detail extends Component {
     constructor(props) {
         super(props);
@@ -36,29 +57,35 @@ class Detail extends Component {
     }
 
     render () {
-        const { note } = this.props;
+        const { note, categories } = this.props;
         const { editModeTitle } = this.state;
 
         if(!note) return null;
 
         return (
-            <Title onClick={ this.openTitleEditMode }>
-                { editModeTitle && 
-                    <div>
-                        <EditTitle 
-                            autoFocus
-                            defaultValue={ note.title } 
-                            onBlur={ this.handleTitleChange }
-                        />
-                        <Divider />
-                    </div>
-                }
-                { !editModeTitle && 
-                    <Sectiontitle iconId="edit">
-                        { note.title }
-                    </Sectiontitle> 
-                }
-            </Title>
+            <div>
+                <Title onClick={ this.openTitleEditMode }>
+                    { editModeTitle && 
+                        <div>
+                            <EditTitle 
+                                autoFocus
+                                defaultValue={ note.title } 
+                                onBlur={ this.handleTitleChange }
+                            />
+                            <Divider />
+                        </div>
+                    }
+                    { !editModeTitle && 
+                        <Sectiontitle iconId="edit">
+                            { note.title }
+                        </Sectiontitle> 
+                    }
+                </Title>
+
+                <CatChooser>
+                    <Chooser categories={ mapCategoriesForChooser(categories, note.category_id) } />
+                </CatChooser>
+            </div>
         )
     }
 
@@ -95,7 +122,11 @@ class Detail extends Component {
 }
 
 const mapState = state => ({
-    note: notesSelectores.getNotesEntities(state)[notesSelectores.getNotesActive(state)]
+    note: notesSelectores.getNotesEntities(state)[notesSelectores.getNotesActive(state)],
+    categories: {
+        results: categoriesSelectors.getCategories(state),
+        entities: categoriesSelectors.getCategoriesEntities(state)
+    }
 })
 
 export default connect(mapState)(Detail)

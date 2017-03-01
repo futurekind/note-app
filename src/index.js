@@ -11,7 +11,8 @@ store.dispatch({
     payload: {
         id: 'note1',
         updatedAt: '2017-03-01T13:15:00',
-        title: 'Some new Note'
+        title: 'Some new Note',
+        category_id: 'cat3'
     }
 })
 
