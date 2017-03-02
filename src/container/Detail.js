@@ -61,7 +61,7 @@ const CatChooser = styled.div`
 `
 
 const mapCategoriesForChooser = ({results, entities}, activeCategory) => {
-    return results.map(id => {
+    const map = results.map(id => {
         const cat = entities[id];
 
         return {
@@ -72,6 +72,17 @@ const mapCategoriesForChooser = ({results, entities}, activeCategory) => {
             active: id === activeCategory
         }
     })
+
+    return [
+        { 
+            id: '',
+            color: '#fff',
+            colorCode: 'none',
+            label: 'Keine Kategorie',
+            active: activeCategory === ''
+        },
+        ...map
+    ]
 }
 
 class Detail extends Component {
