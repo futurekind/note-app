@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import TransitionGroup from 'react-addons-css-transition-group';
 
 import { colors } from '../utils/styles';
 
@@ -12,6 +13,31 @@ import * as notesActions from '../actions/notes';
 import Sectiontitle from '../components/Sectiontitle';
 import Divider from '../components/Divider';
 import Chooser from '../components/CategoryChooser'
+
+const View = styled.div`
+    &.transition-enter {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+
+    &.transition-enter-active {
+        opacity: 1;
+        transform: none;
+        transition: opacity .25s ease-out,
+                    transform .25s ease-out;
+    }
+
+    &.transition-leave {
+        opacity: 1;
+    }
+
+    &.transition-leave-active {
+        opacity: 0;
+        transform: translateY(10%);
+        transition: opacity .25s ease-in,
+                    transform .25s ease-in;
+    }
+`
 
 const Title = styled.header`
     cursor: pointer;
@@ -65,34 +91,41 @@ class Detail extends Component {
         if(!note) return null;
 
         return (
-            <div>
-                <Title onClick={ this.openTitleEditMode }>
-                    { editModeTitle && 
-                        <div>
-                            <EditTitle 
-                                autoFocus
-                                defaultValue={ note.title } 
-                                onBlur={ this.handleTitleChange }
-                            />
-                            <Divider />
-                        </div>
-                    }
-                    { !editModeTitle && 
-                        <Sectiontitle iconId="edit">
-                            { note.title }
-                        </Sectiontitle> 
-                    }
-                </Title>
+            <TransitionGroup
+                transitionName="transition"
+                transitionEnterTimeout={ 250 }
+                transitionLeaveTimeout={ 250 }
+                component="div"
+            >
+                <View key={ note.id }>
+                    <Title onClick={ this.openTitleEditMode }>
+                        { editModeTitle && 
+                            <div>
+                                <EditTitle 
+                                    autoFocus
+                                    defaultValue={ note.title } 
+                                    onBlur={ this.handleTitleChange }
+                                />
+                                <Divider />
+                            </div>
+                        }
+                        { !editModeTitle && 
+                            <Sectiontitle iconId="edit">
+                                { note.title }
+                            </Sectiontitle> 
+                        }
+                    </Title>
 
-                <CatChooser>
-                    <Chooser 
-                        open={ catChooserOpen }
-                        onClickLabel={ this.handleClickCatChooserLabel }
-                        onClickCategory={ this.handleClickCategory }
-                        categories={ mapCategoriesForChooser(categories, note.category_id) } 
-                    />
-                </CatChooser>
-            </div>
+                    <CatChooser>
+                        <Chooser 
+                            open={ catChooserOpen }
+                            onClickLabel={ this.handleClickCatChooserLabel }
+                            onClickCategory={ this.handleClickCategory }
+                            categories={ mapCategoriesForChooser(categories, note.category_id) } 
+                        />
+                    </CatChooser>
+                </View>
+            </TransitionGroup>
         )
     }
 
