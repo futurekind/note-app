@@ -2,47 +2,97 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import { colors } from '../utils/styles';
+
 import * as notesSelectores from '../selectors/notes';
+import * as categoriesSelectors from '../selectors/categories';
 
 import * as notesActions from '../actions/notes';
 
 import Sectiontitle from '../components/Sectiontitle';
+import Divider from '../components/Divider';
+import Chooser from '../components/CategoryChooser'
 
 const Title = styled.header`
     cursor: pointer;
 `
 
-const EditTitle = styled.input``
+const EditTitle = styled.input`
+    width: 100%;
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: 300;
+    font-family: 'Source Sans Pro', sans-serif;
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+`
+
+const CatChooser = styled.div`
+    text-align: right;
+`
+
+const mapCategoriesForChooser = ({results, entities}, activeCategory) => {
+    return results.map(id => {
+        const cat = entities[id];
+
+        return {
+            id,
+            color: colors[cat.color],
+            colorCode: cat.color, 
+            label: cat.label,
+            active: id === activeCategory
+        }
+    })
+}
 
 class Detail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            editModeTitle: false
+            editModeTitle: false,
+            catChooserOpen: false
         }
     }
 
     render () {
-        const { note } = this.props;
-        const { editModeTitle } = this.state;
+        const { note, categories } = this.props;
+        const { editModeTitle, catChooserOpen } = this.state;
 
         if(!note) return null;
 
         return (
-            <Title onClick={ this.openTitleEditMode }>
-                { editModeTitle && 
-                    <EditTitle 
-                        defaultValue={ note.title } 
-                        onBlur={ this.handleTitleChange }
-                    /> 
-                }
-                { !editModeTitle && 
-                    <Sectiontitle iconId="edit">
-                        { note.title }
-                    </Sectiontitle> 
-                }
-            </Title>
+            <div>
+                <Title onClick={ this.openTitleEditMode }>
+                    { editModeTitle && 
+                        <div>
+                            <EditTitle 
+                                autoFocus
+                                defaultValue={ note.title } 
+                                onBlur={ this.handleTitleChange }
+                            />
+                            <Divider />
+                        </div>
+                    }
+                    { !editModeTitle && 
+                        <Sectiontitle iconId="edit">
+                            { note.title }
+                        </Sectiontitle> 
+                    }
+                </Title>
+
+                <CatChooser>
+                    <Chooser 
+                        open={ catChooserOpen }
+                        onClickLabel={ this.handleClickCatChooserLabel }
+                        onClickCategory={ this.handleClickCategory }
+                        categories={ mapCategoriesForChooser(categories, note.category_id) } 
+                    />
+                </CatChooser>
+            </div>
         )
     }
 
@@ -70,16 +120,42 @@ class Detail extends Component {
 
         dispatch(
             notesActions.edit(note.id, {
-                title: value
+                title: value,
+                updatedAt: new Date().toISOString()
             })
         )
 
         this.closeTitleEditMode()
     }
+
+    handleClickCatChooserLabel = () => {
+        this.setState({
+            catChooserOpen: !this.state.catChooserOpen
+        })
+    }
+
+    handleClickCategory = (id) => {
+        const { dispatch, note } = this.props;
+
+        dispatch(
+            notesActions.edit(note.id, {
+                category_id: id,
+                updatedAt: new Date().toISOString()
+            })
+        )
+
+        this.setState({
+            catChooserOpen: false
+        })
+    }
 }
 
 const mapState = state => ({
-    note: notesSelectores.getNotesEntities(state)[notesSelectores.getNotesActive(state)]
+    note: notesSelectores.getNotesEntities(state)[notesSelectores.getNotesActive(state)],
+    categories: {
+        results: categoriesSelectors.getCategories(state),
+        entities: categoriesSelectors.getCategoriesEntities(state)
+    }
 })
 
 export default connect(mapState)(Detail)
