@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import TransitionGroup from 'react-addons-css-transition-group';
+import ReactMarkdown from 'react-markdown';
 
 import { colors } from '../utils/styles';
 
@@ -13,6 +14,7 @@ import * as notesActions from '../actions/notes';
 import Sectiontitle from '../components/Sectiontitle';
 import Divider from '../components/Divider';
 import Chooser from '../components/CategoryChooser'
+import Note from '../components/Note';
 
 const View = styled.div`
     &.transition-enter {
@@ -135,6 +137,15 @@ class Detail extends Component {
                             categories={ mapCategoriesForChooser(categories, note.category_id) } 
                         />
                     </CatChooser>
+
+
+                    <Note>
+                        <h1>Heading 1</h1>
+                        <h2>Heading 2</h2>
+                        <h3>Heading 3</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur saepe temporibus dicta aliquam, quos a labore commodi, quidem hic debitis quibusdam enim necessitatibus corrupti illum accusantium ipsa, rem vel. Ipsa.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores dolores deleniti provident numquam, perferendis iste beatae sit consectetur doloremque suscipit temporibus commodi vel libero quod aliquam aspernatur ab accusamus ea.</p>
+                    </Note>
                 </View>
             </TransitionGroup>
         )

@@ -12,7 +12,8 @@ store.dispatch({
         id: 'note1',
         updatedAt: '2017-03-01T15:46:09.752Z',
         title: 'Some new Note',
-        category_id: 'cat3'
+        category_id: 'cat3',
+        content: '# This is a header\n\nAnd this is a paragraph\n\nAnother paragraph\n\n>Foo some'
     }
 })
 
