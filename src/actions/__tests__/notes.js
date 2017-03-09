@@ -91,4 +91,17 @@ describe('Notes Actions', () => {
         })
     })
 
+    describe('setEditMode()', () => {
+
+        it('returns object', () => {
+            expect(
+                actions.setEditMode('some-id')
+            ).toEqual({
+                type: actions.types.NOTES__EDIT_MODE,
+                id: 'some-id'
+            })
+        })
+
+    })
+
 })

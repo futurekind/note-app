@@ -5,7 +5,8 @@ export const types = {
     NOTES__EDIT: 'NOTES__EDIT',
     NOTES__DELETE: 'NOTES__DELETE',
     NOTES__OPEN: 'NOTES__OPEN',
-    NOTES__ACTIVE: 'NOTES__ACTIVE'
+    NOTES__ACTIVE: 'NOTES__ACTIVE',
+    NOTES__EDIT_MODE: 'NOTES__EDIT_MODE',
 }
 
 export const create = data => {
@@ -35,5 +36,10 @@ export const toggleOpen = () => ({
 
 export const setActive = (id) => ({
     type: types.NOTES__ACTIVE,
+    id
+})
+
+export const setEditMode = (id) => ({
+    type: types.NOTES__EDIT_MODE,
     id
 })
