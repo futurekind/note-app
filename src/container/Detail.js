@@ -143,7 +143,7 @@ class Detail extends Component {
                     <Main onDoubleClick={ this.handleDoubleClick }>
                         { note.id !== noteInEditMode &&
                             <Note>
-                                <ReactMarkdown source={ note.content } />
+                                <ReactMarkdown source={ note.content || '' } />
                             </Note>
                         }
                         { note.id === noteInEditMode && 
