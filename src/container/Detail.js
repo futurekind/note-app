@@ -143,8 +143,18 @@ class Detail extends Component {
                         <h1>Heading 1</h1>
                         <h2>Heading 2</h2>
                         <h3>Heading 3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur saepe temporibus dicta aliquam, quos a labore commodi, quidem hic debitis quibusdam enim necessitatibus corrupti illum accusantium ipsa, rem vel. Ipsa.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores dolores deleniti provident numquam, perferendis iste beatae sit consectetur doloremque suscipit temporibus commodi vel libero quod aliquam aspernatur ab accusamus ea.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur saepe temporibus dicta aliquam, quos a labore commodi, quidem hic debitis quibusdam enim <a href="#0">necessitatibus corrupti illum</a> accusantium ipsa, rem vel. Ipsa.</p>
+                        <p>Lorem ipsum dolor sit amet, <b>consectetur</b> adipisicing elit. <strong>Maiores dolores</strong> deleniti provident numquam, <i>perferendis iste</i> beatae sit <em>consectetur doloremque</em> suscipit temporibus commodi vel libero quod aliquam aspernatur ab accusamus ea.</p>
+                        <ul>
+                            <li>Lorem ipsum.</li>
+                            <li>Lorem ipsum.</li>
+                            <li>Lorem ipsum.</li>
+                        </ul>
+                        <ol>
+                            <li>Lorem ipsum.</li>
+                            <li>Lorem ipsum.</li>
+                            <li>Lorem ipsum.</li>
+                        </ol>
                     </Note>
                 </View>
             </TransitionGroup>

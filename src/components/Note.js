@@ -1,6 +1,8 @@
 import React from 'react'
 import styled, { css } from 'styled-components';
 
+import { colors } from '../utils/styles';
+
 const H1 = () => `
     margin-top: 0;
     margin-bottom: 1.25em;
@@ -41,8 +43,22 @@ const H3 = () => `
 `
 
 const Paragraph = () => `
+    margin: 1.2em 0;
     padding-left: 20px;
     letter-spacing: .67px;
+`
+
+const List = () => `
+    margin: 1.2em 0;
+    padding-left: 20px;
+`
+
+const Link = () => `
+    color: ${colors.blueDark};
+    
+    &:hover {
+        color: ${colors.blue};
+    }
 `
 
 const View = styled.div`
@@ -54,6 +70,10 @@ const View = styled.div`
     h3 { ${() => H3()} }
 
     p { ${() => Paragraph()} }
+
+    ul, ol { ${() => List()} }
+
+    a { ${() => Link()} }
 `
 
 const Note = ({
