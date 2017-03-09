@@ -62,6 +62,8 @@ const CatChooser = styled.div`
     text-align: right;
 `
 
+const Main = styled.main``
+
 const mapCategoriesForChooser = ({results, entities}, activeCategory) => {
     const map = results.map(id => {
         const cat = entities[id];
@@ -98,7 +100,7 @@ class Detail extends Component {
     }
 
     render () {
-        const { note, categories } = this.props;
+        const { note, categories, noteInEditMode } = this.props;
         const { editModeTitle, catChooserOpen } = this.state;
 
         if(!note) return null;
@@ -138,25 +140,23 @@ class Detail extends Component {
                         />
                     </CatChooser>
 
+                    <Main onDoubleClick={ this.handleDoubleClick }>
+                        { note.id !== noteInEditMode &&
+                            <Note>
+                                <ReactMarkdown source={ note.content } />
+                            </Note>
+                        }
+                        { note.id === noteInEditMode && 
+                            <textarea 
+                                autoFocus 
+                                onBlur={ this.handleBlurEditArea } 
+                                defaultValue={ note.content }
+                            />
+                        }
+                    </Main>
 
-                    <Note>
-                        <h1>Heading 1</h1>
-                        <h2>Heading 2</h2>
-                        <h3>Heading 3</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur saepe temporibus dicta aliquam, quos a labore commodi, quidem hic debitis quibusdam enim <a href="#0">necessitatibus corrupti illum</a> accusantium ipsa, rem vel. Ipsa.</p>
-                        <p>Lorem ipsum dolor sit amet, <b>consectetur</b> adipisicing elit. <strong>Maiores dolores</strong> deleniti provident numquam, <i>perferendis iste</i> beatae sit <em>consectetur doloremque</em> suscipit temporibus commodi vel libero quod aliquam aspernatur ab accusamus ea.</p>
-                        <ul>
-                            <li>Lorem ipsum.</li>
-                            <li>Lorem ipsum.</li>
-                            <li>Lorem ipsum.</li>
-                        </ul>
-                        <ol>
-                            <li>Lorem ipsum.</li>
-                            <li>Lorem ipsum.</li>
-                            <li>Lorem ipsum.</li>
-                        </ol>
-                    </Note>
                 </View>
+
             </TransitionGroup>
         )
     }
@@ -213,10 +213,39 @@ class Detail extends Component {
             catChooserOpen: false
         })
     }
+
+    handleDoubleClick = () => {
+        const { dispatch, note, noteInEditMode } = this.props;
+
+        if(note.id !== noteInEditMode) {
+            dispatch(
+                notesActions.setEditMode(note.id)
+            )
+        }
+    }
+
+    handleBlurEditArea = (e) => {
+        const { value } = e.target;
+        const { dispatch, note } = this.props;
+
+        if(note.content !== value) {
+            dispatch(
+                notesActions.edit(note.id, {
+                    content: value,
+                    updatedAt: new Date().toISOString()
+                })
+            )
+        }
+
+        dispatch(
+            notesActions.setEditMode('')
+        )
+    }
 }
 
 const mapState = state => ({
     note: notesSelectores.getNotesEntities(state)[notesSelectores.getNotesActive(state)],
+    noteInEditMode: notesSelectores.getNoteInEditMode(state),
     categories: {
         results: categoriesSelectors.getCategories(state),
         entities: categoriesSelectors.getCategoriesEntities(state)
