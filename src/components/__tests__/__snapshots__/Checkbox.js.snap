@@ -1,5 +1,6 @@
 exports[`Checkbox renders 1`] = `
 <styled.span
+  background="transparent"
   onClick={[Function]} />
 `;
 
@@ -11,8 +12,10 @@ exports[`Checkbox renders bg colors of type prop 1`] = `
 
 exports[`Checkbox renders checked Icon 1`] = `
 <styled.span
+  background="transparent"
   onClick={[Function]}>
   <Styled(Icon)
+    fill="#353535"
     id="check" />
 </styled.span>
 `;

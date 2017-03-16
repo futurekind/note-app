@@ -8,6 +8,7 @@
     "moment": "^2.17.1",
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
+    "react-markdown": "^2.4.5",
     "react-redux": "^5.0.2",
     "react-scripts": "0.9.0",
     "redux": "^3.6.0",

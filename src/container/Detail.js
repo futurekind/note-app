@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import TransitionGroup from 'react-addons-css-transition-group';
+import ReactMarkdown from 'react-markdown';
 
 import { colors } from '../utils/styles';
 
@@ -12,6 +14,32 @@ import * as notesActions from '../actions/notes';
 import Sectiontitle from '../components/Sectiontitle';
 import Divider from '../components/Divider';
 import Chooser from '../components/CategoryChooser'
+import Note from '../components/Note';
+
+const View = styled.div`
+    &.transition-enter {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+
+    &.transition-enter-active {
+        opacity: 1;
+        transform: none;
+        transition: opacity .25s ease-out,
+                    transform .25s ease-out;
+    }
+
+    &.transition-leave {
+        opacity: 1;
+    }
+
+    &.transition-leave-active {
+        opacity: 0;
+        transform: translateY(10%);
+        transition: opacity .25s ease-in,
+                    transform .25s ease-in;
+    }
+`
 
 const Title = styled.header`
     cursor: pointer;
@@ -34,8 +62,10 @@ const CatChooser = styled.div`
     text-align: right;
 `
 
+const Main = styled.main``
+
 const mapCategoriesForChooser = ({results, entities}, activeCategory) => {
-    return results.map(id => {
+    const map = results.map(id => {
         const cat = entities[id];
 
         return {
@@ -46,6 +76,17 @@ const mapCategoriesForChooser = ({results, entities}, activeCategory) => {
             active: id === activeCategory
         }
     })
+
+    return [
+        { 
+            id: '',
+            color: '#fff',
+            colorCode: 'none',
+            label: 'Keine Kategorie',
+            active: activeCategory === ''
+        },
+        ...map
+    ]
 }
 
 class Detail extends Component {
@@ -59,40 +100,64 @@ class Detail extends Component {
     }
 
     render () {
-        const { note, categories } = this.props;
+        const { note, categories, noteInEditMode } = this.props;
         const { editModeTitle, catChooserOpen } = this.state;
 
         if(!note) return null;
 
         return (
-            <div>
-                <Title onClick={ this.openTitleEditMode }>
-                    { editModeTitle && 
-                        <div>
-                            <EditTitle 
-                                autoFocus
-                                defaultValue={ note.title } 
-                                onBlur={ this.handleTitleChange }
-                            />
-                            <Divider />
-                        </div>
-                    }
-                    { !editModeTitle && 
-                        <Sectiontitle iconId="edit">
-                            { note.title }
-                        </Sectiontitle> 
-                    }
-                </Title>
+            <TransitionGroup
+                transitionName="transition"
+                transitionEnterTimeout={ 250 }
+                transitionLeaveTimeout={ 250 }
+                component="div"
+            >
+                <View key={ note.id }>
+                    <Title onClick={ this.openTitleEditMode }>
+                        { editModeTitle && 
+                            <div>
+                                <EditTitle 
+                                    autoFocus
+                                    defaultValue={ note.title } 
+                                    onBlur={ this.handleTitleChange }
+                                />
+                                <Divider />
+                            </div>
+                        }
+                        { !editModeTitle && 
+                            <Sectiontitle iconId="edit">
+                                { note.title }
+                            </Sectiontitle> 
+                        }
+                    </Title>
 
-                <CatChooser>
-                    <Chooser 
-                        open={ catChooserOpen }
-                        onClickLabel={ this.handleClickCatChooserLabel }
-                        onClickCategory={ this.handleClickCategory }
-                        categories={ mapCategoriesForChooser(categories, note.category_id) } 
-                    />
-                </CatChooser>
-            </div>
+                    <CatChooser>
+                        <Chooser 
+                            open={ catChooserOpen }
+                            onClickLabel={ this.handleClickCatChooserLabel }
+                            onClickCategory={ this.handleClickCategory }
+                            categories={ mapCategoriesForChooser(categories, note.category_id) } 
+                        />
+                    </CatChooser>
+
+                    <Main onDoubleClick={ this.handleDoubleClick }>
+                        { note.id !== noteInEditMode &&
+                            <Note>
+                                <ReactMarkdown source={ note.content || '' } />
+                            </Note>
+                        }
+                        { note.id === noteInEditMode && 
+                            <textarea 
+                                autoFocus 
+                                onBlur={ this.handleBlurEditArea } 
+                                defaultValue={ note.content }
+                            />
+                        }
+                    </Main>
+
+                </View>
+
+            </TransitionGroup>
         )
     }
 
@@ -148,10 +213,39 @@ class Detail extends Component {
             catChooserOpen: false
         })
     }
+
+    handleDoubleClick = () => {
+        const { dispatch, note, noteInEditMode } = this.props;
+
+        if(note.id !== noteInEditMode) {
+            dispatch(
+                notesActions.setEditMode(note.id)
+            )
+        }
+    }
+
+    handleBlurEditArea = (e) => {
+        const { value } = e.target;
+        const { dispatch, note } = this.props;
+
+        if(note.content !== value) {
+            dispatch(
+                notesActions.edit(note.id, {
+                    content: value,
+                    updatedAt: new Date().toISOString()
+                })
+            )
+        }
+
+        dispatch(
+            notesActions.setEditMode('')
+        )
+    }
 }
 
 const mapState = state => ({
     note: notesSelectores.getNotesEntities(state)[notesSelectores.getNotesActive(state)],
+    noteInEditMode: notesSelectores.getNoteInEditMode(state),
     categories: {
         results: categoriesSelectors.getCategories(state),
         entities: categoriesSelectors.getCategoriesEntities(state)

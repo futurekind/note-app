@@ -81,6 +81,7 @@ CategoryToggler.defaultProps = {
 
 CategoryToggler.propTypes = {
     checkboxType: PropTypes.oneOf([
+        'none',
         'orange',
         'red',
         'green',

@@ -113,6 +113,14 @@ class App extends Component {
                             open={ categories.open }
                             onToggle={ this.handleToggleCategories }
                         >
+                            <Category 
+                                value=""
+                                checkboxType="none"
+                                label="Keine Kategorie"
+                                checked={ categories.active.indexOf('') > -1 } 
+                                onCheck={ this.handleCategoryCheck }
+                            />
+                            
                             { categories.results.map(id => {
                                 const cat = categories.entities[id];
 

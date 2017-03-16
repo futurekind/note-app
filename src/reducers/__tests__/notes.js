@@ -78,4 +78,10 @@ describe('Notes reducer', () => {
         
     })
 
+    it(`handles ${actions.types.NOTES__EDIT_MODE}`, () => {
+        const nextState = reducer(state, actions.setEditMode('some-id'))
+
+        expect(nextState.inEditMode).toBe('some-id');
+    })
+
 })

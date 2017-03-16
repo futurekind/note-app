@@ -26,7 +26,8 @@ describe('Notes Selectors', () => {
                 }
             },
             open: true,
-            active: 'note2'
+            active: 'note2',
+            inEditMode: 'note3'
         }
     }
 
@@ -81,6 +82,14 @@ describe('Notes Selectors', () => {
 
         it('returns open field', () => {
             expect(result).toEqual(state.notes.open)
+        })
+    })
+
+    describe('getNoteInEditMode()', () => {
+        const result = selectors.getNoteInEditMode(state)
+
+        it('returns id of note in edit mode', () => {
+            expect(result).toBe('note3')
         })
     })
 

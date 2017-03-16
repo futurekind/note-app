@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { colors } from '../utils/styles';
 import Icon from './Icon';
@@ -10,10 +10,21 @@ const View = styled.span`
     display: inline-block;
     background-color: ${ props => props.background };
     cursor: pointer;
+
+    ${props => {
+        if(props.background === 'transparent') {
+            return css`
+                width: 23px;
+                height: 23px;
+                border: 1px solid #ccc;
+            `
+        }
+    }}
+
 `
 
 const CheckboxIcon = styled(Icon)`
-    fill: #fff;
+    fill: ${props => props.fill};
 `
 
 const Checkbox = ({
@@ -22,8 +33,10 @@ const Checkbox = ({
     onCheck
 }) => {
     return (
-        <View background={ colors[type] } onClick={ () => onCheck(checked) }>
-            { checked && <CheckboxIcon id="check" /> }
+        <View background={ colors[type] || 'transparent' } onClick={ () => onCheck(checked) }>
+            { checked && <CheckboxIcon id="check" fill={
+                colors[type] ? '#fff' : colors.dark
+            } /> }
         </View>
     )
 }
@@ -36,6 +49,7 @@ Checkbox.defaultProps = {
 Checkbox.propTypes = {
     checked: PropTypes.bool,
     type: PropTypes.oneOf([
+        'none',
         'orange',
         'red',
         'green',

@@ -5,6 +5,7 @@ const getResults = state => state.notes.results;
 const getEntities = state => state.notes.entities;
 const getActive = state => state.notes.active;
 const getOpen = state => state.notes.open;
+const getInEditMode = state => state.notes.inEditMode;
 
 export const getNotes = createSelector(
     getResults,
@@ -35,3 +36,4 @@ export const getNotesEntities = createSelector(
 )
 export const getNotesActive = getActive;
 export const getNotesOpen = getOpen;
+export const getNoteInEditMode = getInEditMode;

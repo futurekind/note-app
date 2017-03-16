@@ -4,7 +4,8 @@ export const initialState = {
     results: [],
     entities: {},
     open: false,
-    active: ''
+    active: '',
+    inEditMode: ''
 }
 
 export default (state = initialState, action) => {
@@ -63,6 +64,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 open: !state.open
+            }
+
+        case types.NOTES__EDIT_MODE:
+            return {
+                ...state,
+                inEditMode: action.id
             }
 
         default:
