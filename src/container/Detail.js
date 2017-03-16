@@ -16,7 +16,17 @@ import Divider from '../components/Divider';
 import Chooser from '../components/CategoryChooser'
 import Note from '../components/Note';
 
+const TransitionGroupView = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+`
+
 const View = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
     &.transition-enter {
         opacity: 0;
         transform: translateY(-10%);
@@ -62,7 +72,11 @@ const CatChooser = styled.div`
     text-align: right;
 `
 
-const Main = styled.main``
+const Main = styled.main`
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+`
 
 const mapCategoriesForChooser = ({results, entities}, activeCategory) => {
     const map = results.map(id => {
@@ -110,7 +124,7 @@ class Detail extends Component {
                 transitionName="transition"
                 transitionEnterTimeout={ 250 }
                 transitionLeaveTimeout={ 250 }
-                component="div"
+                component={ TransitionGroupView }
             >
                 <View key={ note.id }>
                     <Title onClick={ this.openTitleEditMode }>
