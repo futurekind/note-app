@@ -78,6 +78,19 @@ const Main = styled.main`
     -webkit-overflow-scrolling: touch;
 `
 
+const EditArea = styled.textarea`
+    width: 98%;
+    height: 95%;
+    border: none;
+    resize: none;
+    font-family: 'Fira Mono', monospace;
+    font-size: 16px;
+
+    &:focus {
+        outline: none;
+    }
+`
+
 const mapCategoriesForChooser = ({results, entities}, activeCategory) => {
     const map = results.map(id => {
         const cat = entities[id];
@@ -122,6 +135,8 @@ class Detail extends Component {
         return (
             <TransitionGroup
                 transitionName="transition"
+                transitionEnter={ false }
+                transitionLeave={ false }
                 transitionEnterTimeout={ 250 }
                 transitionLeaveTimeout={ 250 }
                 component={ TransitionGroupView }
@@ -161,7 +176,7 @@ class Detail extends Component {
                             </Note>
                         }
                         { note.id === noteInEditMode && 
-                            <textarea 
+                            <EditArea 
                                 autoFocus 
                                 onBlur={ this.handleBlurEditArea } 
                                 defaultValue={ note.content }
